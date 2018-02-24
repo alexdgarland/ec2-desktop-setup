@@ -1,0 +1,7 @@
+Host ec2-desktop
+    HostName <put the URL provided by AWS here>
+    User ubuntu
+    IdentityFile ~/.ssh/<name of key downloaded from AWS here>.pem
+    StrictHostKeyChecking No
+    LocalForward 3388 localhost:3389
+    
