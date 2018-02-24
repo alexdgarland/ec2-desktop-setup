@@ -6,6 +6,8 @@ To get a Linux desktop that you can RDP to from Windows:
 
 2) Spin up an Ubuntu instance in AWS, making sure you take a note of the URL for it and have saved off the private key (PEM) that you need to connect to your local ~/.ssh directory. We will use port-forwarding to connect RDP, so the only port that needs to be enabled on the Security Group is 22 (default SSH).
 
+There is a [Terraform](https://www.terraform.io) script provided that will create the AWS resources (security group, EC2 instance) as long as a key pair already exists and you set the Terraform variable "ec2-keypair-name" to match it.
+
 3) Use the ssh-config-template.txt file, copying the entry into your ~/.ssh/config file (create it if it doesn't exist) and adding the details of the EC2 URL and key file name noted in step 2.
 
 4) Through Git Bash on your Windows machine, run the deploy_over_ssh.sh script, passing the password you want to set for the EC2 instance as the first argument. The script will execute remotely on the EC2 instance, installing packages and changing settings, and will reboot the machine will done.
