@@ -10,17 +10,15 @@ else
 
     echo -e "${PASSWORD}\n${PASSWORD}" | (sudo passwd ubuntu)
     
-    cat /dev/zero | ssh-keygen -q -N ""
-    
     set -x
     
-    sudo add-apt-repository ppa:webupd8team/atom
+    cat /dev/zero | ssh-keygen -q -N ""
+    sudo sysctl net.ipv4.ip_forward=1
     
+    sudo add-apt-repository ppa:webupd8team/atom
     sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
     sudo apt update && sudo apt upgrade
 
-    sudo sysctl net.ipv4.ip_forward=1
-    
     sudo sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
     sudo /etc/init.d/ssh restart
     
@@ -37,6 +35,8 @@ else
 
     sudo service xrdp restart    
 
+    mkdir ~/synced-repos
+    
     printf "\n\n**** COMPLETED INSTALLATION - REBOOTING ****\n\n\n"
     
     sudo reboot
