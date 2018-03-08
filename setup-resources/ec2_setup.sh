@@ -1,11 +1,20 @@
 #! /usr/bin/env bash
 
-source $( dirname "${BASH_SOURCE[0]}" )/installation/installer_functions.sh
+set -e
+
+INSTALLATION_DIR=$( dirname "${BASH_SOURCE[0]}" )/installation
+
+source $INSTALLATION_DIR/installer_functions.sh
 
 function configure_ssh() {
   sudo sysctl net.ipv4.ip_forward=1
   sudo sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
   sudo /etc/init.d/ssh restart
+}
+
+function setup_for_github() {
+  chmod 700 ~/.ssh/github_private_key
+  mkdir -p ~/git
 }
 
 if [ -z "$PASSWORD" ]; then
@@ -21,6 +30,10 @@ configure_ssh
 prepare_for_installs
 setup_xrdp
 install_applications
+setup_for_github
+
+cat $INSTALLATION_DIR/bashrc_additions.sh >> ~/.bashrc
+cat $INSTALLATION_DIR/bash_profile_additions.sh >> ~/.bash_profile
 
 printf "\n\n**** COMPLETED INSTALLATION - REBOOTING ****\n\n\n"
 sudo reboot

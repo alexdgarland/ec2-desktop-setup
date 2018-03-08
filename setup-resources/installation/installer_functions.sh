@@ -29,7 +29,7 @@ function setup_xrdp() {
   sudo chmod 644 $KM_PATH
 
   # Fix terminal autocomplete bug in XFCE
-  XFCE_CONF_DIR=~/.config/xfce4/xfconf/xfce-perchannel-xml
+  XFCE_CONF_DIR=/etc/xdg/xfce4/xfconf/xfce-perchannel-xml
   KB_CONF=$XFCE_CONF_DIR/xfce4-keyboard-shortcuts.xml
   sudo cp $KB_CONF $KB_CONF.bak
   sudo sed -i 's/switch_window_key/empty/' $KB_CONF
@@ -40,6 +40,6 @@ function setup_xrdp() {
 
 function install_applications() {
   sudo apt-get -y install $(cat $RESOURCE_DIR/applications.txt | tr -d "\015" | tr "\n" " ")
-  sudo pip install --upgrade pip
-  sudo pip install --upgrade virtualenv
+  sudo -H pip install --upgrade pip
+  sudo -H pip install --upgrade virtualenv
 }
