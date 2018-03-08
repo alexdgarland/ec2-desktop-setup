@@ -3,7 +3,7 @@ gedit
 eclipse
 openjdk-8-jdk
 atom
-ruby
+ruby-full
 python-pip
 python-dev
 build-essential
