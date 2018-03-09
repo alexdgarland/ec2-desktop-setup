@@ -22,7 +22,7 @@ resource "aws_security_group" "ec2-desktop-group" {
 
 resource "aws_instance" "ec2_desktop" {
   ami           = "ami-941e04f0"
-  instance_type = "t2.micro"
+  instance_type = "${var.instance-type}"
   security_groups = ["ec2-desktop-group"]
   key_name = "${var.ec2-keypair-name}"
   provisioner "local-exec" {
