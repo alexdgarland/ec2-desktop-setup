@@ -26,6 +26,6 @@ resource "aws_instance" "ec2_desktop" {
   security_groups = ["ec2-desktop-group"]
   key_name = "${var.ec2-keypair-name}"
   provisioner "local-exec" {
-    command = "bash ssh_config.sh ${aws_instance.ec2_desktop.public_dns} ${var.ec2-keypair-name} | tee ~/.ssh/config"
+    command = "bash local_ssh_config.sh ${aws_instance.ec2_desktop.public_dns} ${var.ec2-keypair-name} | tee ~/.ssh/config"
   }
 }

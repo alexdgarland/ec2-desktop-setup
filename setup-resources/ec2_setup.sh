@@ -10,11 +10,8 @@ function configure_ssh() {
   sudo sysctl net.ipv4.ip_forward=1
   sudo sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
   sudo /etc/init.d/ssh restart
-}
-
-function setup_for_github() {
   chmod 700 ~/.ssh/github_private_key
-  mkdir -p ~/git
+  cp $INSTALLATION_DIR/remote_ssh_config ~/.ssh/config
 }
 
 if [ -z "$PASSWORD" ]; then
@@ -30,7 +27,8 @@ configure_ssh
 prepare_for_installs
 setup_xrdp
 install_applications
-setup_for_github
+
+mkdir -p ~/git
 
 cat $INSTALLATION_DIR/bashrc_additions.sh >> ~/.bashrc
 cat $INSTALLATION_DIR/bash_profile_additions.sh >> ~/.bash_profile
