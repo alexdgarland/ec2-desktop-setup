@@ -11,7 +11,7 @@ Automation to get a Linux desktop on AWS that you can RDP to from Windows. All s
 
 ## Steps (Bash CLI)
 
-1) Move to the "terraform" directory and run `terraform apply`. You will need to set variable "ec2-keypair-name", either from the command line or using a terraform.tfvars file (which will be gitignore'd if placed in the "terraform" folder).
+1) Move to the "terraform" directory and run `terraform apply`. You will need to set variable "ec2-keypair-name", either from the command line or using a terraform.tfvars file (which will be gitignore'd if placed in the "terraform" folder). You can also set "instance-type" if you don't want to use the default (t2.micro).
 
 This will create the Ubuntu EC2 instance (with required security group) and automatically write entries into your local ~/.ssh/config. **Please note that it will currently fully overwrite this file, so if you don't want that, back up your existing SSH config first and manually restore any additional entries you need!**
 

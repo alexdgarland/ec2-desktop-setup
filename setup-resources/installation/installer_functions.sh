@@ -44,8 +44,9 @@ function configure_atom() {
 }
 
 function install_applications() {
-  sudo apt-get -y install $(cat $RESOURCE_DIR/apps.txt | tr -d "\015" | tr "\n" " ")
-  if egrep ^atom$ $RESOURCE_DIR/applications.txt ; then
+  app_list_file=$RESOURCE_DIR/apps.txt
+  sudo apt-get -y install $(cat $app_list_file | tr -d "\015" | tr "\n" " ")
+  if cat $app_list_file | tr -d "\015" | egrep ^atom$  ; then
     configure_atom
   fi
   sudo -H pip install --upgrade pip
