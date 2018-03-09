@@ -38,8 +38,16 @@ function setup_xrdp() {
   sudo service xrdp restart
 }
 
+function configure_atom() {
+  sudo cp /usr/lib/x86_64-linux-gnu/libxcb.so.1 /opt/atom/
+  sudo sed -i 's/BIG-REQUESTS/_IG-REQUESTS/' /opt/atom/libxcb.so.1
+}
+
 function install_applications() {
-  sudo apt-get -y install $(cat $RESOURCE_DIR/applications.txt | tr -d "\015" | tr "\n" " ")
+  sudo apt-get -y install $(cat $RESOURCE_DIR/apps.txt | tr -d "\015" | tr "\n" " ")
+  if egrep ^atom$ $RESOURCE_DIR/applications.txt ; then
+    configure_atom
+  fi
   sudo -H pip install --upgrade pip
   sudo -H pip install --upgrade virtualenv
 }
