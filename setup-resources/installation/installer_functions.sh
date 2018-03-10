@@ -42,7 +42,10 @@ function setup_xrdp() {
 function configure_atom() {
   sudo cp /usr/lib/x86_64-linux-gnu/libxcb.so.1 /opt/atom/
   sudo sed -i 's/BIG-REQUESTS/_IG-REQUESTS/' /opt/atom/libxcb.so.1
+  mkdir -p ~/.atom/
+  cat $RESOURCE_DIR/atom_keymap_additions.cson >> ~/.atom/keymap.cson
 }
+
 
 function install_applications() {
   app_list_file=$RESOURCE_DIR/apps.txt
@@ -52,4 +55,5 @@ function install_applications() {
   fi
   sudo -H pip install --upgrade pip
   sudo -H pip install --upgrade virtualenv
+  sudo gem install bundle
 }

@@ -1,0 +1,5 @@
+
+# This is a nasty hack that seems to be necessary
+# because of something to do with XRDP key-mapping that I haven't worked out yet?
+'atom-text-editor':
+  'space': 'editor:newline'
