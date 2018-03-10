@@ -23,15 +23,13 @@ echo -e "${PASSWORD}\n${PASSWORD}" | (sudo passwd ubuntu)
 # Only turn on full command logging once password set!
 set -x
 
+cat $INSTALLATION_DIR/bashrc_additions.sh >> ~/.bashrc
+mkdir -p ~/git
+
 configure_ssh
 prepare_for_installs
 setup_xrdp
 install_applications
-
-mkdir -p ~/git
-
-cat $INSTALLATION_DIR/bashrc_additions.sh >> ~/.bashrc
-cat $INSTALLATION_DIR/bash_profile_additions.sh >> ~/.bash_profile
 
 printf "\n\n**** COMPLETED INSTALLATION - REBOOTING ****\n\n\n"
 sudo reboot

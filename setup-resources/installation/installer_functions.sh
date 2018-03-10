@@ -17,7 +17,8 @@ function prepare_for_installs() {
 function setup_xrdp() {
 
   sudo apt-get -y install xrdp xfce4 xfce4-goodies tightvncserver
-  echo xfce4-session > /home/ubuntu/.xsession
+  cat $RESOURCE_DIR/xsession_startup_additions.sh >> ~/.xsession
+  echo xfce4-session >> ~/.xsession
   sudo cp /home/ubuntu/.xsession /etc/skel
   sudo sed -i '0,/-1/s//ask-1/' /etc/xrdp/xrdp.ini
 

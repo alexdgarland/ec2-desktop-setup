@@ -15,9 +15,10 @@ Automation to get a Linux desktop on AWS that you can RDP to from Windows. All s
 
 This will create the Ubuntu EC2 instance (with required security group) and automatically write entries into your local ~/.ssh/config. **Please note that it will currently fully overwrite this file, so if you don't want that, back up your existing SSH config first and manually restore any additional entries you need!**
 
-2) Run the deploy_over_ssh.sh script, with required arguments:
+2) Run the deploy_over_ssh.sh script, with required arguments (in format key=value):
     - "-p" / "--password" - the password you want to set for the EC2 instance
-    - "-k" / "--github-private-key" - the name of a private key file that can be used with your Github account (assumed to be stored locally under ~/.ssh)
+    - "-k" / "--github-private-key" - the name of a private key file (assumed to be stored locally under ~/.ssh), the paired public key for which is registered with your Github account
+    - "-c" / "--gitconfig" - the location of a Git (global) config file to use on the remote desktop
 
 The script will execute remotely on the EC2 instance, installing packages and changing settings, and will reboot the machine when done.
 
