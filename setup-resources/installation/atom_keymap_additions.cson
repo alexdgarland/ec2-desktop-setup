@@ -3,3 +3,5 @@
 # because of something to do with XRDP key-mapping that I haven't worked out yet?
 'atom-text-editor':
   'space': 'editor:newline'
+'.tree-view-dialog atom-text-editor':
+  'space': 'core:confirm'
