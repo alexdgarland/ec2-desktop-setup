@@ -46,7 +46,6 @@ function configure_atom() {
   cat $RESOURCE_DIR/atom_keymap_additions.cson >> ~/.atom/keymap.cson
 }
 
-
 function install_applications() {
   app_list_file=$RESOURCE_DIR/apps.txt
   sudo apt-get -y install $(cat $app_list_file | tr -d "\015" | tr "\n" " ")
@@ -56,4 +55,7 @@ function install_applications() {
   sudo -H pip install --upgrade pip
   sudo -H pip install --upgrade virtualenv
   sudo gem install bundle
+  pushd $RESOURCE_DIR/../github-utils/
+  bundle install
+  popd
 }

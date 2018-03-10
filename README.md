@@ -3,6 +3,7 @@
 Automation to get a Linux desktop on AWS that you can RDP to from Windows. All setup can also be done from a Windows environment (hence why not using Ansible!) provided the prerequisites below are followed.
 
 ## Prerequisites
+
 - Working AWS account!
 - You have an EC2 key-pair created in AWS and the private key downloaded and saved off to ~/.ssh/$keypair_name.pem
 - [Git Bash](https://gitforwindows.org) (or a similar Bash/SSH-on-Windows solution) installed.
@@ -28,4 +29,14 @@ The script will execute remotely on the EC2 instance, installing packages and ch
 
 **NB:** If you want to SSH separately to the instance while port-forwarding is running, use `ssh ec2-desktop`.
 
-### TODO: automatically clone all GitHub repos.
+## Cloning Github repos
+
+A simple Ruby script is provided to quickly clone all repos a given from GitHub account (which needs to be the same account as the private key is set up for above, otherwise the cloning won't work). This will be automatically installed under ~/setup-resources/github-utils/clone-all-repos.rb on the remote machine and when run, repos will be added under ~/git.
+
+The script needs to be run manually to provide username and password - usage is as follows:
+
+```
+Usage: clone-all-repos.rb [options]
+    -u, --user USER                  GitHub username
+    -p, --password PASSWORD          GitHub password
+```
