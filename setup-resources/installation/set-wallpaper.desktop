@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=Set wallpaper
+Comment=Set the wallpaper on startup
+Exec=set_wallpaper.sh
+OnlyShowIn=XFCE;
+StartupNotify=false
+Terminal=false
+Hidden=false

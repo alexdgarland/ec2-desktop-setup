@@ -13,7 +13,8 @@ function prepare_for_installs() {
 
 function setup_xrdp() {
   sudo apt-get -y install xrdp xfce4 xfce4-goodies tightvncserver
-  cat $RESOURCE_DIR/xsession_startup_additions.sh >> ~/.xsession
+  sudo cp $RESOURCE_DIR/set_wallpaper.sh /usr/local/bin/
+  sudo cp $RESOURCE_DIR/set-wallpaper.desktop /etc/xdg/autostart/
   echo xfce4-session >> ~/.xsession
   sudo cp ~/.xsession /etc/skel
   sudo sed -i '0,/-1/s//ask-1/' /etc/xrdp/xrdp.ini
