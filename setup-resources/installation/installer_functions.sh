@@ -2,12 +2,9 @@
 
 RESOURCE_DIR=$( dirname "${BASH_SOURCE[0]}" )
 
-
 function prepare_for_installs() {
   sudo add-apt-repository ppa:webupd8team/atom
-
   sudo DEBIAN_FRONTEND=noninteractive apt-get update
-
   sudo DEBIAN_FRONTEND=noninteractive apt-get -y \
     -o Dpkg::Options::="--force-confdef" \
     -o Dpkg::Options::="--force-confold" \
@@ -15,27 +12,19 @@ function prepare_for_installs() {
 }
 
 function setup_xrdp() {
-
   sudo apt-get -y install xrdp xfce4 xfce4-goodies tightvncserver
   cat $RESOURCE_DIR/xsession_startup_additions.sh >> ~/.xsession
   echo xfce4-session >> ~/.xsession
-  sudo cp /home/ubuntu/.xsession /etc/skel
+  sudo cp ~/.xsession /etc/skel
   sudo sed -i '0,/-1/s//ask-1/' /etc/xrdp/xrdp.ini
-
   # Install UK keyboard in a way that works with XRDP
-  KM_FILE=km-0809.ini
-  KM_PATH=/etc/xrdp/$KM_FILE
-  sudo mv $RESOURCE_DIR/$KM_FILE $KM_PATH
-  sudo chown xrdp.xrdp $KM_PATH
-  sudo chmod 644 $KM_PATH
-
+  sudo mv $RESOURCE_DIR/km-0809.ini /etc/xrdp/km-0809.ini
+  sudo chown xrdp.xrdp /etc/xrdp/km-0809.ini
+  sudo chmod 644 /etc/xrdp/km-0809.ini
   # Fix terminal autocomplete bug in XFCE
-  XFCE_CONF_DIR=/etc/xdg/xfce4/xfconf/xfce-perchannel-xml
-  KB_CONF=$XFCE_CONF_DIR/xfce4-keyboard-shortcuts.xml
-  sudo cp $KB_CONF $KB_CONF.bak
+  KB_CONF=/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
   sudo sed -i 's/switch_window_key/empty/' $KB_CONF
-
-  # Having done all that - restart the service
+  # Restart service
   sudo service xrdp restart
 }
 
