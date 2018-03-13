@@ -1,9 +1,0 @@
-firefox
-gedit
-eclipse
-openjdk-8-jdk
-atom
-ruby-full
-python-pip
-python-dev
-build-essential

@@ -16,7 +16,7 @@ Automation to get a Linux desktop on AWS that you can RDP to from Windows. All s
 
 This will create the Ubuntu EC2 instance (with required security group) and automatically write entries into your local ~/.ssh/config. **Please note that it will currently fully overwrite this file, so if you don't want that, back up your existing SSH config first and manually restore any additional entries you need!**
 
-2) Run the deploy_over_ssh.sh script, with required arguments (in format key=value):
+2) Run the deploy.sh script, with required arguments (in format key=value):
     - "-p" / "--password" - the password you want to set for the EC2 instance
     - "-k" / "--github-private-key" - the name of a private key file (assumed to be stored locally under ~/.ssh), the paired public key for which is registered with your Github account
     - "-c" / "--gitconfig" - the location of a Git (global) config file to use on the remote desktop
@@ -31,7 +31,7 @@ The script will execute remotely on the EC2 instance, installing packages and ch
 
 ## Cloning Github repos
 
-A simple Ruby script is provided to quickly clone all repos a given from GitHub account (which needs to be the same account as the private key is set up for above, otherwise the cloning won't work). This will be automatically installed under ~/setup-resources/github-utils/clone-all-repos.rb on the remote machine and when run, repos will be added under ~/git.
+A simple Ruby script is provided to quickly clone all repos a given from GitHub account (which needs to be the same account as the private key is set up for above, otherwise the cloning won't work). This will be automatically installed under ~/github-utils/clone-all-repos.rb on the remote machine and when run, repos will be added under ~/git.
 
 The script needs to be run manually to provide username and password - usage is as follows:
 

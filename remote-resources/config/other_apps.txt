@@ -1,0 +1,4 @@
+firefox
+gedit
+eclipse
+openjdk-8-jdk
