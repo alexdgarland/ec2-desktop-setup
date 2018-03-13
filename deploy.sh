@@ -36,7 +36,6 @@ exec_remote_script "setup_xrdp"
 exec_remote_script "install_atom"
 exec_remote_script "install_python"
 exec_remote_script "install_other_apps"
-exec_remote_script "setup_bashrc"
 
 ssh ec2-desktop "rm -rf /tmp/remote-resources/"
 
