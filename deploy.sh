@@ -4,22 +4,14 @@ set -eu
 
 for i in "$@"
 do
-case $i in
+  case $i in
     -p=*|--password=*)
-    PASSWORD="${i#*=}"
-    shift
-    ;;
-    -k=*|--github-private-key=*)
-    GITHUB_PRIVATE_KEY="${i#*=}"
-    shift
-    ;;
-    -c=*|--gitconfig=*)
-    GIT_CONFIG_FILE="${i#*=}"
-    shift
-    ;;
+      PASSWORD="${i#*=}"
+      shift
+      ;;
     *)
-    ;;
-esac
+      ;;
+  esac
 done
 
 LOG_DIR=$( dirname "${BASH_SOURCE[0]}" )/install_logs/`date '+%Y-%m-%d-%H%M%S'`
@@ -43,12 +35,6 @@ exec_remote_script "install_other_apps"
 exec_remote_script "setup_bashrc"
 
 ssh ec2-desktop "rm -rf /tmp/remote-resources/"
-
-# Git setup - TODO could run this entirely separately?
-. $( dirname "${BASH_SOURCE[0]}" )/git_setup/git_setup.sh \
-      $GITHUB_PRIVATE_KEY \
-      $GIT_CONFIG_FILE \
-        2>&1 | tee $LOG_DIR/git_setup.log
 
 printf "\n\n**** COMPLETED INSTALLATION - REBOOTING ****\n\n\n"
 ssh ec2-desktop "sudo reboot"

@@ -5,8 +5,8 @@ require 'ostruct'
 require 'octokit'
 
 options = OpenStruct.new
-options.user = ""
-options.password = ""
+
+options.directory = "~/git/"
 
 OptionParser.new do |opts|
   opts.banner = "Usage: clone-all-repos.rb [options]"
@@ -16,9 +16,12 @@ OptionParser.new do |opts|
   opts.on("-p PASSWORD", "--password PASSWORD", "GitHub password") do |password|
     options.password = password
   end
+  opts.on("-d DIR", "--directory DIR", "Directory to clone repos under") do |dir|
+    options.directory = dir
+  end
 end.parse!
 
-if (options.user == "") or (options.password == "") then
+if (options.user.nil?) or (options.password.nil?) then
   raise ArgumentError, "Username and/or password not provided."
 end
 
@@ -28,7 +31,10 @@ client = Octokit::Client.new \
   :login    => options.user,
   :password => options.password
 
+puts "Creating directory #{options.directory} to host repos"
+`mkdir -p #{options.directory}`
+
 client.repos.each do |r|
   puts "Cloning repo #{r.full_name}"
-  `git clone git@github.com:#{r.full_name}.git ~/git/#{r.name}`
+  `git clone git@github.com:#{r.full_name}.git #{options.directory}#{r.name}`
 end

@@ -16,10 +16,9 @@ Automation to get a Linux desktop on AWS that you can RDP to from Windows. All s
 
 This will create the Ubuntu EC2 instance (with required security group) and automatically write entries into your local ~/.ssh/config. **Please note that it will currently fully overwrite this file, so if you don't want that, back up your existing SSH config first and manually restore any additional entries you need!**
 
-2) Run the deploy.sh script, with required arguments (in format key=value):
+2) Run the deploy.sh script, providing required arguments (in format key=value):
+
     - "-p" / "--password" - the password you want to set for the EC2 instance
-    - "-k" / "--github-private-key" - the name of a private key file (assumed to be stored locally under ~/.ssh), the paired public key for which is registered with your Github account
-    - "-c" / "--gitconfig" - the location of a Git (global) config file to use on the remote desktop
 
 The script will execute remotely on the EC2 instance, installing packages and changing settings, and will reboot the machine when done.
 
@@ -29,14 +28,12 @@ The script will execute remotely on the EC2 instance, installing packages and ch
 
 **NB:** If you want to SSH separately to the instance while port-forwarding is running, use `ssh ec2-desktop`.
 
-## Cloning Github repos
+## Git Setup
 
-A simple Ruby script is provided to quickly clone all repos a given from GitHub account (which needs to be the same account as the private key is set up for above, otherwise the cloning won't work). This will be automatically installed under ~/github-utils/clone-all-repos.rb on the remote machine and when run, repos will be added under ~/git.
+A separate script is provided to set up Git - run git_setup/git_setup.sh from your local machine with the following required arguments (in format key=value):
+    - "-k" / "--private-key" - the name of a private key file (assumed to be stored locally under ~/.ssh), the paired public key for which is registered with your Github account
+    - "-c" / "--gitconfig" - the location of a Git (global) config file to use on the remote machine
+    - "-u" / "--username" - Github username
+    - "-p" / "--password" - Github password
 
-The script needs to be run manually to provide username and password - usage is as follows:
-
-```
-Usage: clone-all-repos.rb [options]
-    -u, --user USER                  GitHub username
-    -p, --password PASSWORD          GitHub password
-```
+Key-based SSH access will be setup and your preferred config applied. All repos available in your Github account will be cloned to ~/git on the remote machine.
