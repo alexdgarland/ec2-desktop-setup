@@ -21,9 +21,13 @@ ssh ec2-desktop "echo -e \"${PASSWORD}\n${PASSWORD}\" | (sudo passwd ubuntu)"
 
 scp -r $( dirname "${BASH_SOURCE[0]}" )/remote-resources/ ec2-desktop:/tmp/remote-resources/
 
+exec_idx=1
+
 function exec_remote_script {
   script_name=$1
-  ssh ec2-desktop ". /tmp/remote-resources/scripts/$script_name.sh" 2>&1 | tee $LOG_DIR/$script_name.log
+  script_path=/tmp/remote-resources/scripts/$script_name.sh
+  ssh ec2-desktop ". $script_path" 2>&1 | tee $LOG_DIR/$exec_idx-$script_name.log
+  exec_idx=$((exec_idx+1))
 }
 
 exec_remote_script "configure_ssh"
