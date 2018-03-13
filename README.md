@@ -31,6 +31,7 @@ The script will execute remotely on the EC2 instance, installing packages and ch
 ## Git Setup
 
 A separate script is provided to set up Git - run git_setup/git_setup.sh from your local machine with the following required arguments (in format key=value):
+
     - "-k" / "--private-key" - the name of a private key file (assumed to be stored locally under ~/.ssh), the paired public key for which is registered with your Github account
     - "-c" / "--gitconfig" - the location of a Git (global) config file to use on the remote machine
     - "-u" / "--username" - Github username
