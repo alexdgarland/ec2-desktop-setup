@@ -18,7 +18,7 @@ This will create the Ubuntu EC2 instance (with required security group) and auto
 
 2) Run the deploy.sh script, providing required arguments (in format key=value):
 
-    - "-p" / "--password" - the password you want to set for the EC2 instance
+    - "-p" / "--password" - the password you want to set for the EC2 instance (and the Airflow webserver)
 
 The script will execute remotely on the EC2 instance, installing packages and changing settings, and will reboot the machine when done.
 

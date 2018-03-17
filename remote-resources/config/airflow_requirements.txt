@@ -1,0 +1,5 @@
+# Core and subpackage install
+apache-airflow[async,celery,crypto,jdbc,mysql,password,rabbitmq]
+apache-airflow
+# Downgrade to earlier version of SQLAlchemy which doesn't break Airflow user setup!
+sqlalchemy<1.2
